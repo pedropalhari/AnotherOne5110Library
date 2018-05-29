@@ -1,10 +1,10 @@
 #include "LCDlib.h"
 
 void setup() {
-  
-  
-
   initialize();
+
+  writeString("B");
+  
 }
 
 

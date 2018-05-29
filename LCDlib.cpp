@@ -1,7 +1,7 @@
 
-#include <Arduino.h>
 #include "LCDlib.h"
 
+//pinagem
 int RST = 14, CE = 15, DC = 16, DIN = 17, CLK = 18, VCC = 19;
 
 void initialize(){
@@ -59,6 +59,25 @@ void sendData(char data){
   shiftOut(DIN, CLK, MSBFIRST, data);  
   
   digitalWrite(CE, HIGH);  
+}
+
+void sendMultipleData(char data[], int dataLength){
+  digitalWrite(CLK, LOW);
+
+  digitalWrite(CE, LOW);
+  digitalWrite(DC, HIGH);
+
+  for(int i = 0; i < dataLength; i++)
+    shiftOut(DIN, CLK, MSBFIRST, data[i]);  
+
+  digitalWrite(CE, HIGH);  
+}
+
+void writeString(String text){
+  for(int i = 0; i < text.length(); i++){
+    sendMultipleData(getChar(text[i]), 5);
+    sendData(0x00);
+  }
 }
 
 void clearLCD(){
