@@ -3,7 +3,7 @@
 void setup() {
   initialize();
 
-  writeString("B");
+  writeString("DEF");
   
 }
 
